@@ -31,16 +31,134 @@ public class Encoder {
 		return backtracked_string;
 	}
 	
-	public static String encode(String user_input)
-	{
-		String[] words = user_input.split(" ");
-		user_input = backtrack(user_input);
+	public static String[] backtrack(String[] user_input)
+	{	
+		String current_string = "";
+		for(int iterator = 0; iterator < user_input.length; iterator++)
+		{
+			current_string = user_input[iterator];
+			char[] future = new char[current_string.length()];
+			String backtracked_string = "";
+			
+			int loop_iterator = 0;
+			for(int i = 0; i < current_string.length(); i++)
+			{
+				char j = current_string.charAt(i);
+				char k = current_string.charAt(current_string.length() - i - 1);
+				
+				if (i != current_string.length() - i - 1)
+				{
+					future[loop_iterator] = j;
+					future[loop_iterator + 1] = k;
+					loop_iterator = loop_iterator + 2;
+				}
+				else
+				{
+					future[loop_iterator] = j;
+					++loop_iterator;
+				}
+			}
+			user_input[iterator] = String.valueOf(future);
+		}
 		
 		return user_input;
 	}
+	
+	public static String reassemble(String[] words)
+	{
+		String reassembled = "";
+		
+		for (int i = 0; i < words.length; i++)
+		{
+			if (i != words.length - 1)
+			{
+				reassembled += words[i] + " ";
+			}
+			else
+			{
+				reassembled += words[i];
+			}
+		}
+		
+		return reassembled;
+	}
+	
+	public static String convert_to_ascii(String user_input)
+	{
+		String new_string = "";
+		for (int i = 0; i < user_input.length(); i++)
+		{
+			if ((int)user_input.charAt(i) < 100)
+			{
+				new_string += "0" +(int)user_input.charAt(i);
+			}
+			else
+			{
+				new_string += (int)user_input.charAt(i);
+			}
+		}
+		return new_string;
+	}
+	
+	public static String spongebob_text(String user_input)
+	{
+		String spongebob = "";
+		boolean previous_capital = true;
+		for(int i = 0; i < user_input.length(); ++i)
+		{
+			char j = user_input.charAt(i);
+			if (j == ' ' | j == '.' | j == '!' | j == '?')
+			{
+				spongebob += j;
+			}
+			else if (previous_capital)
+			{
+				spongebob += j;
+				previous_capital = false;
+			}
+			else
+			{
+				if (j >= 65 && j <= 90)
+				{
+					spongebob += (char)(j + 32);
+				}
+				else if (j >= 97 && j <= 122)
+				{
+					spongebob += (char)(j - 32);
+				}
+				else 
+				{
+					spongebob += j;
+				}
+				
+				previous_capital = true;
+			}
+		}
+		return spongebob;
+	}
+	
+	/*
+	 * HEY DIPSHIT, BREAKING IT INTO WORDS ISNT WORKING YOU FUCKING DONKEY
+	 */
+	public static String encode(String user_input)
+	{
+		String[] words = user_input.split(" ");
+		
+		for(int iterator = 0; iterator < words.length; iterator++)
+		{
+			words[iterator] = backtrack(words[iterator]);
+			//words[iterator] = spongebob_text(words[iterator]);
+			//words[iterator] = convert_to_ascii(words[iterator]);
+		}
+		
+		user_input = reassemble(words);
+		
+		return user_input;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Spongebob");
+		JFrame frame = new JFrame("Encoder");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
