@@ -34,15 +34,76 @@ public class Decoder {
 		decoded_string = String.valueOf(future);
 		return decoded_string;
 	}
-	public static String decode(String decoded_string)
+	
+	public static String reassemble(String[] words)
 	{
-		decoded_string = unbacktrack(decoded_string);
-		return decoded_string;
+		String reassembled = "";
+		
+		for (int i = 0; i < words.length; i++)
+		{
+			if (i != words.length - 1)
+			{
+				reassembled += words[i] + " ";
+			}
+			else
+			{
+				reassembled += words[i];
+			}
+		}
+		
+		return reassembled;
+	}
+	
+	public static String convert_from_ascii(String user_input)
+	{	
+		String new_string = "";
+		for (int i = 0; i < user_input.length(); i = i + 3)
+		{
+			String temp = user_input.substring(i, i + 3);
+			int temp_int = Integer.parseInt(temp);
+			new_string += (char) temp_int;
+		}
+		
+		return new_string;
+	}
+	
+	public static String make_lowercase(String user_input)
+	{
+		String spongebob = "";
+		for(int i = 0; i < user_input.length(); ++i)
+		{
+			char j = user_input.charAt(i);
+			if (j >= 65 && j <= 90)
+			{
+				spongebob += (char)(j + 32);
+			}
+			else 
+			{
+				spongebob += j;
+			}
+		}
+		return spongebob;
+	}
+	
+	public static String decode(String user_input)
+	{
+		String[] words = user_input.split(" ");
+		
+		for(int iterator = 0; iterator < words.length; iterator++)
+		{
+			//words[iterator] = convert_from_ascii(words[iterator]);
+			//words[iterator] = make_lowercase(words[iterator]);
+			words[iterator] = unbacktrack(words[iterator]);
+		}
+	
+		user_input = reassemble(words);
+		
+		return user_input;
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Spongebob");
+		JFrame frame = new JFrame("Decoder");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
