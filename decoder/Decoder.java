@@ -85,15 +85,50 @@ public class Decoder {
 		return spongebob;
 	}
 	
+	public static String unfuck_numbers(String user_input)
+	{
+		String new_ui = "";
+		for(int iterator = 0; iterator < user_input.length(); iterator = iterator + 3)
+		{
+			String temp = user_input.substring(iterator, iterator + 3);
+			int temp_int = Integer.parseInt(temp);
+			temp_int = (int)((temp_int - 69)/ 2);
+			if (temp_int < 100)
+			{
+				new_ui += "0" + String.valueOf(temp_int);
+			}
+			else
+			{
+				new_ui += String.valueOf(temp_int);
+			}
+		}
+		return new_ui;
+	}
+	
+	public static String words_length_one(String user_input)
+	{
+		int ui = Integer.parseInt(user_input);
+		char user_char = (char)(ui - 69323);
+		return String.valueOf(user_char);
+	}
+	
 	public static String decode(String user_input)
 	{
-		String[] words = user_input.split(" ");
+		String[] words = user_input.split("00");
 		
 		for(int iterator = 0; iterator < words.length; iterator++)
 		{
-			//words[iterator] = convert_from_ascii(words[iterator]);
-			words[iterator] = make_lowercase(words[iterator]);
-			words[iterator] = unbacktrack(words[iterator]);
+			if(words[iterator].length() == 5)
+			{
+				words[iterator] = words_length_one(words[iterator]);
+			}
+			else
+			{
+				words[iterator] = unfuck_numbers(words[iterator]);
+				words[iterator] = convert_from_ascii(words[iterator]);
+				words[iterator] = make_lowercase(words[iterator]);
+				words[iterator] = unbacktrack(words[iterator]);
+			}
 		}
 	
 		user_input = reassemble(words);
