@@ -81,7 +81,7 @@ public class Encoder {
 		{
 			if (i != words.length - 1)
 			{
-				reassembled += words[i] + " ";
+				reassembled += words[i] + "00";
 			}
 			else
 			{
@@ -146,6 +146,31 @@ public class Encoder {
 		return spongebob;
 	}
 	
+	public static String words_length_one(String user_input)
+	{
+		char ui = user_input.charAt(0);
+		return String.valueOf(ui + 69323);
+	}
+	
+	public static String number_fuck(String user_input)
+	{
+		String new_ui = "";
+		for(int iterator = 0; iterator < user_input.length(); iterator = iterator + 3)
+		{
+			String temp = user_input.substring(iterator, iterator + 3);
+			int temp_int = Integer.parseInt(temp);
+			temp_int = 2 * temp_int + 69;
+			if (temp_int < 100)
+			{
+				new_ui += "0" + String.valueOf(temp_int);
+			}
+			else
+			{
+				new_ui += String.valueOf(temp_int);
+			}
+		}
+		return new_ui;
+	}//(8 * i^3)+ (4 * i^2) +
 	/*
 	 * HEY DIPSHIT, BREAKING IT INTO WORDS ISNT WORKING YOU FUCKING DONKEY
 	 */
@@ -155,9 +180,17 @@ public class Encoder {
 		
 		for(int iterator = 0; iterator < words.length; iterator++)
 		{
-			words[iterator] = backtrack(words[iterator]);
-			//words[iterator] = spongebob_text(words[iterator]);
-			//words[iterator] = convert_to_ascii(words[iterator]);
+			if(words[iterator].length() == 1)
+			{
+				words[iterator] = words_length_one(words[iterator]);
+			}
+			else
+			{
+				words[iterator] = backtrack(words[iterator]);
+				words[iterator] = spongebob_text(words[iterator]);
+				words[iterator] = convert_to_ascii(words[iterator]);
+				words[iterator] = number_fuck(words[iterator]);
+			}
 		}
 		
 		user_input = reassemble(words);
