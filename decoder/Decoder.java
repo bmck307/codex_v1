@@ -92,7 +92,7 @@ public class Decoder {
 		for(int iterator = 0; iterator < words.length; iterator++)
 		{
 			//words[iterator] = convert_from_ascii(words[iterator]);
-			//words[iterator] = make_lowercase(words[iterator]);
+			words[iterator] = make_lowercase(words[iterator]);
 			words[iterator] = unbacktrack(words[iterator]);
 		}
 	
