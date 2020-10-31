@@ -18,17 +18,26 @@ public class Encoder {
 	public static String backtrack(String user_input)
 	{	
 		
-		String backtracked_string = "";
+		char[] backtracked = new char[user_input.length()];
 		
-		for(int i = 0; i < (user_input.length() / 2); i++)
+		int back_iterator = 0;
+		int front_iterator = 0;
+		for (int i = 0; i < user_input.length(); i = i + 2)
 		{
-			char j = user_input.charAt(i);
-			char k = user_input.charAt(user_input.length() - i - 1);
-			backtracked_string += j;
-			backtracked_string += k;
+			if (i + 1 == user_input.length())
+			{
+				backtracked[i] = user_input.charAt(front_iterator);
+			}
+			else
+			{
+				backtracked[i] = user_input.charAt(front_iterator);
+				backtracked[i + 1] = user_input.charAt(user_input.length() - 1 - back_iterator);
+				++back_iterator;
+				++front_iterator;
+			}
 		}
 		
-		return backtracked_string;
+		return String.valueOf(backtracked);
 	}
 	
 	public static String[] backtrack(String[] user_input)
