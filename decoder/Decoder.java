@@ -105,30 +105,16 @@ public class Decoder {
 		return new_ui;
 	}
 	
-	public static String words_length_one(String user_input)
-	{
-		int ui = Integer.parseInt(user_input);
-		char user_char = (char)(ui - 69323);
-		return String.valueOf(user_char);
-	}
-	
 	public static String decode(String user_input)
 	{
 		String[] words = user_input.split("00");
 		
 		for(int iterator = 0; iterator < words.length; iterator++)
 		{
-			if(words[iterator].length() == 5)
-			{
-				words[iterator] = words_length_one(words[iterator]);
-			}
-			else
-			{
-				words[iterator] = unfuck_numbers(words[iterator]);
-				words[iterator] = convert_from_ascii(words[iterator]);
-				words[iterator] = make_lowercase(words[iterator]);
-				words[iterator] = unbacktrack(words[iterator]);
-			}
+			words[iterator] = unfuck_numbers(words[iterator]);
+			words[iterator] = convert_from_ascii(words[iterator]);
+			words[iterator] = make_lowercase(words[iterator]);
+			words[iterator] = unbacktrack(words[iterator]);
 		}
 	
 		user_input = reassemble(words);
