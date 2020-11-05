@@ -11,9 +11,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Encoder {
-	/*
+	/**
 	 * This loop takes a letter from the front and back and puts them together at the front
 	 * Ex:fuckoff would be ffufcok
+	 * @param user_input
+	 * @return
 	 */
 	public static String backtrack(String user_input)
 	{	
@@ -40,6 +42,11 @@ public class Encoder {
 		return String.valueOf(backtracked);
 	}
 	
+	/**
+	 * 
+	 * @param words
+	 * @return 
+	 */
 	public static String[] backtrack(String[] user_input)
 	{	
 		String current_string = "";
@@ -47,7 +54,7 @@ public class Encoder {
 		{
 			current_string = user_input[iterator];
 			char[] future = new char[current_string.length()];
-			String backtracked_string = "";
+			//String backtracked_string = "";
 			
 			int loop_iterator = 0;
 			for(int i = 0; i < current_string.length(); i++)
@@ -149,7 +156,7 @@ public class Encoder {
 	public static String words_length_one(String user_input)
 	{
 		char ui = user_input.charAt(0);
-		return String.valueOf(ui + 69323);
+		return String.valueOf(ui + 69323 + "1");
 	}
 	
 	public static String number_fuck(String user_input)
@@ -180,17 +187,10 @@ public class Encoder {
 		
 		for(int iterator = 0; iterator < words.length; iterator++)
 		{
-			if(words[iterator].length() == 1)
-			{
-				words[iterator] = words_length_one(words[iterator]);
-			}
-			else
-			{
-				words[iterator] = backtrack(words[iterator]);
-				words[iterator] = spongebob_text(words[iterator]);
-				words[iterator] = convert_to_ascii(words[iterator]);
-				words[iterator] = number_fuck(words[iterator]);
-			}
+			words[iterator] = backtrack(words[iterator]);
+			words[iterator] = spongebob_text(words[iterator]);
+			words[iterator] = convert_to_ascii(words[iterator]);
+			words[iterator] = number_fuck(words[iterator]);
 		}
 		
 		user_input = reassemble(words);
